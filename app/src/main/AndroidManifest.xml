@@ -20,10 +20,15 @@
         </activity>
 
 
-         <activity
-             android:name=".ShowWeb"
-             android:label="WebActivity"
-         ></activity>
+        <activity
+            android:name=".ShowWeb"
+            android:label="WebActivity"
+            ></activity>
+
+        <activity
+            android:name=".ShowChannels"
+            android:label="ChannelsActivity"
+            ></activity>
 
 
     </application>
