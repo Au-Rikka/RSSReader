@@ -16,12 +16,17 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import homework5.rssreader.Channels.ChannelsStuff;
+import homework5.rssreader.Channels.TChannel;
 import homework5.rssreader.RSS.RSSAdapter;
 import homework5.rssreader.RSS.RSSParser;
 import homework5.rssreader.RSS.TNews;
@@ -29,7 +34,7 @@ import homework5.rssreader.RSS.TNews;
 /**
  * Created by Anstanasia on 21.10.2014.
  */
-public class UpdateRSSList extends AsyncTask<String, Void, List<TNews>> {
+public class UpdateRSSList extends AsyncTask<Void, Void, List<TNews>> {
     Context context;
     RSSAdapter adapter;
     ListView rssList;
@@ -40,60 +45,84 @@ public class UpdateRSSList extends AsyncTask<String, Void, List<TNews>> {
     }
 
     @Override
-    protected List<TNews> doInBackground(String... urls) {
-       // Log.d("Updater: ", Thread.currentThread().getName());
+    protected List<TNews> doInBackground(Void... ignore) {
+        List<TNews> res = new ArrayList<TNews>();
 
-        try {
-            URL url = new URL(urls[0]);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            InputStream stream = connection.getInputStream();
+        for (int i = 0; i < ChannelsStuff.res.size(); i++) {
+            List<TNews> curList;
+            TChannel channel = ChannelsStuff.res.get(i);
+            try {
+                URL url = new URL(channel.getUrl());
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+                InputStream stream = connection.getInputStream();
 
-            Log.d("Updater", "OK 1");
+                Log.d("Updater", "OK 1");
 
-            Reader reader = new InputStreamReader(stream, "windows-1251");
-            InputSource is = new InputSource(reader);
-            is.setEncoding("windows-1251");
+                Reader reader = new InputStreamReader(stream, "windows-1251");
+                InputSource is = new InputSource(reader);
+                is.setEncoding("windows-1251");
 
-            Log.d("Updater", "OK 2");
+                Log.d("Updater", "OK 2");
 
-            SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
-            RSSParser RSSParser = new RSSParser();
-            saxParser.parse(is, RSSParser);
+                SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+                RSSParser RSSParser = new RSSParser();
+                saxParser.parse(is, RSSParser);
 
-            Log.d("Updater", "OK 3");
+                Log.d("Updater", "OK 3");
 
-            return RSSParser.getNews();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
+                curList = RSSParser.getNews();
+
+                if (curList != null) {
+                    for (int j = 0; j < curList.size(); j++) {
+                        curList.get(j).setParent(channel.getTitle());
+                        res.add(curList.get(j));
+                    }
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
         }
 
-        return null;
+        return res;
     }
 
     @Override
     protected void onPostExecute(List<TNews> res) {
-        if (res == null) {
+        if (res == null || res.size() == 0) {
             Log.d("UpdateRSSList", "null pointer!!!!!!!!!!!!!!");
         } else {
             Log.d("UpdateRSSList", res.get(0).getDescription());
         }
 
         if (res == null || res.size() == 0) {
-            Toast toast = Toast.makeText(context, "Пора покормить кота!", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(context, "Загрузка неудалась", Toast.LENGTH_SHORT);
             toast.show();
         }
 
+        Collections.sort(res, new Comparator<TNews>() {
+            public int compare(TNews o1, TNews o2) {
+                if (o2.getDate2() == null) {
+                    return 1;
+                }
+                if (o1.getDate2() == null) {
+                    return -1;
+                }
+                return o1.getDate2().compareTo(o2.getDate2());
+            }
+        });
+
         adapter = new RSSAdapter();
-        adapter.setData((java.util.ArrayList<TNews>) res);
+        adapter.setData((java.util.ArrayList<TNews>)res);
         adapter.notifyDataSetChanged();
         rssList.setAdapter(adapter);
+
     }
 }

@@ -15,6 +15,7 @@ public class RSSParser extends DefaultHandler {
     private boolean parsingTitle;
     private boolean parsingLink;
     private boolean parsingDescription;
+    private boolean parsingDate;
 
     public List<TNews> getNews() {
         return news;
@@ -34,6 +35,9 @@ public class RSSParser extends DefaultHandler {
         if (qName.equals("link")) {
             parsingLink = true;
         }
+        if (qName.equals("pubDate")) {
+            parsingDate = true;
+        }
     }
 
     @Override
@@ -51,6 +55,9 @@ public class RSSParser extends DefaultHandler {
         }
         if (qName.equals("link")) {
             parsingLink = false;
+        }
+        if (qName.equals("pubDate")) {
+            parsingDate = false;
         }
     }
 
@@ -73,6 +80,10 @@ public class RSSParser extends DefaultHandler {
         if (parsingLink) {
             parsingLink = false;
             currentNews.setLink(newText);
+        }
+        if (parsingDate) {
+            parsingDate = false;
+            currentNews.setDate(newText);
         }
     }
 }

@@ -1,7 +1,6 @@
 package homework5.rssreader;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -83,6 +82,7 @@ public class ShowChannels extends Activity implements ChannelDialog.OnCompleteLi
             }
             ChannelsStuff.addNewChannel(title, url, this);
             adapter.notifyDataSetChanged();
+            Main.download();
         } else if (currCode == REQUEST_CHANGE_CHANNEL) {
             if (title == null && url == null) {
                 ChannelsStuff.deleteChannel(lastItem, this);
@@ -92,6 +92,7 @@ public class ShowChannels extends Activity implements ChannelDialog.OnCompleteLi
                 }
                 ChannelsStuff.changeChannel(title, url, lastItem, this);
             }
+            Main.download();
             adapter.notifyDataSetChanged();
         }
     }

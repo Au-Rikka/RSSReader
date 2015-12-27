@@ -29,8 +29,10 @@ public class Main extends Activity {
         button = (Button) findViewById(R.id.okButton);
         rssList = (ListView) findViewById(R.id.rssListView);
 
-        download();
-        ChannelsStuff.loadChannelsFromDB(this);
+        if (savedInstanceState == null) {
+            ChannelsStuff.loadChannelsFromDB(this);
+            download();
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,15 @@ public class Main extends Activity {
     }
 
     public void download() {
-       new UpdateRSSList(this, rssList).execute("http://feeds.bbci.co.uk/news/rss.xml");
+       new UpdateRSSList(this, rssList).execute();
+        //.execute("http://feeds.bbci.co.uk/news/rss.xml");
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

@@ -21,7 +21,9 @@ public class RSSAdapter extends BaseAdapter {
     private ArrayList <TNews> data = new ArrayList<TNews>();
 
     public void setData(ArrayList<TNews> d) {
-        Log.d("adapter", d.get(0).getDescription());
+        if (d != null && d.size() > 0) {
+            Log.d("adapter", d.get(0).getDescription());
+        }
         this.data = d;
     }
 
@@ -54,8 +56,13 @@ public class RSSAdapter extends BaseAdapter {
 
         ((TextView) view.findViewById(R.id.title)).setText(x.getTitle());
         ((TextView) view.findViewById(R.id.content)).setText(x.getDescription());
+        ((TextView) view.findViewById(R.id.rssDate)).setText(x.getDate());
+        ((TextView) view.findViewById(R.id.rssParentTitle)).setText(x.getParent());
         view.findViewById(R.id.title).setBackgroundColor(Color.GRAY);
         view.findViewById(R.id.content).setBackgroundColor(Color.GRAY);
+        view.findViewById(R.id.rssDate).setBackgroundColor(Color.GRAY);
+        view.findViewById(R.id.rssParentTitle).setBackgroundColor(Color.GRAY);
+
 
         return view;
     }

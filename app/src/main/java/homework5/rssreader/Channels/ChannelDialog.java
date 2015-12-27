@@ -22,17 +22,6 @@ public class ChannelDialog extends DialogFragment {
 
     private OnCompleteListener mListener;
 
-/*    private void sendResult(String title, String url) {
-        if (getTargetFragment() == null)
-            return;
-
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_TITLE, title);
-        intent.putExtra(EXTRA_URL, url);
-        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-    }
-*/
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String title = "";
