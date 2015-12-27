@@ -20,7 +20,9 @@ public class ChannelDialog extends DialogFragment {
     public static final String EXTRA_TITLE = "title";
     public static final String EXTRA_URL = "url";
 
-    private void sendResult(String title, String url) {
+    private OnCompleteListener mListener;
+
+/*    private void sendResult(String title, String url) {
         if (getTargetFragment() == null)
             return;
 
@@ -29,7 +31,7 @@ public class ChannelDialog extends DialogFragment {
         intent.putExtra(EXTRA_URL, url);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
     }
-
+*/
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -57,19 +59,37 @@ public class ChannelDialog extends DialogFragment {
         builder.setView(v).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    sendResult(((EditText)v.findViewById(R.id.channel_dialog_title)).getText().toString(),
-                    ((EditText)v.findViewById(R.id.channel_dialog_url)).getText().toString());
+                    mListener.onComplete(((EditText) v.findViewById(R.id.channel_dialog_title)).getText().toString(),
+                                         ((EditText) v.findViewById(R.id.channel_dialog_url)).getText().toString());
+
+                    /*sendResult(((EditText) v.findViewById(R.id.channel_dialog_title)).getText().toString(),
+                            ((EditText) v.findViewById(R.id.channel_dialog_url)).getText().toString());
+                */
                 }
             }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     ChannelDialog.this.getDialog().cancel();
                 }
             }).setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    sendResult(null, null);
-                }
-            });
+            public void onClick(DialogInterface dialog, int id) {
+                mListener.onComplete(null, null);
+            }
+        });
 
         return builder.create();
     }
+
+    public interface OnCompleteListener {
+        void onComplete(String title, String url);
+    }
+
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.mListener = (OnCompleteListener)activity;
+        } catch (final ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnCompleteListener");
+        }
+    }
+
 }

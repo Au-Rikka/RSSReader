@@ -44,7 +44,7 @@ public class ChannelsStuff {
     }
 
 
-    void addNewChannel(String title, String url, Context context) {
+    public static void addNewChannel(String title, String url, Context context) {
         ContentValues cv = new ContentValues();
         ChannelsDBHelper dbHelper = new ChannelsDBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -63,7 +63,7 @@ public class ChannelsStuff {
         dbHelper.close();
     }
 
-    void changeChannel(String title, String url, int i, Context context) {
+    public static void changeChannel(String title, String url, int i, Context context) {
         ContentValues cv = new ContentValues();
         ChannelsDBHelper dbHelper = new ChannelsDBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -86,14 +86,14 @@ public class ChannelsStuff {
         dbHelper.close();
     }
 
-    void deleteChannel(int i, Context context) {
+    public static void deleteChannel(int i, Context context) {
         ChannelsDBHelper dbHelper = new ChannelsDBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long id = res.get(i).getId();
 
         Log.d(TAG, "--- Delete from mytabe: ---");
-        int delCount = db.delete("mytable", "id = " + id, null);
+        int delCount = db.delete("channels", "id = " + id, null);
 
         Log.d(TAG, "deleted rows count = " + delCount);
 

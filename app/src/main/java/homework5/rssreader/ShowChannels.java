@@ -1,8 +1,6 @@
 package homework5.rssreader;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,22 +9,22 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.nio.channels.Channel;
-
 import homework5.rssreader.Channels.ChannelAdapter;
 import homework5.rssreader.Channels.ChannelDialog;
 import homework5.rssreader.Channels.ChannelsStuff;
 import homework5.rssreader.Channels.TChannel;
-import homework5.rssreader.RSS.RSSAdapter;
-import homework5.rssreader.RSS.TNews;
 
 /**
  * Created by Anstanasia on 26.12.2015.
  */
-public class ShowChannels extends Activity {
+public class ShowChannels extends Activity implements ChannelDialog.OnCompleteListener {
+    private static final int REQUEST_ADD_CHANNEL = 1;
+    private static final int REQUEST_CHANGE_CHANNEL = 2;
+
     ChannelAdapter adapter;
     ListView channelView;
+    int lastItem;
+    int currCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +40,8 @@ public class ShowChannels extends Activity {
         channelView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View view, int pos, long l) {
+                lastItem = pos;
+                currCode = REQUEST_CHANGE_CHANNEL;
                 ChannelDialog dialog = new ChannelDialog();
                 Bundle args = new Bundle();
                 args.putString(ChannelDialog.EXTRA_TITLE, adapter.getItem(pos).getTitle());
@@ -56,6 +56,7 @@ public class ShowChannels extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currCode = REQUEST_ADD_CHANNEL;
                 ChannelDialog dialog = new ChannelDialog();
                 dialog.show(getFragmentManager(), "dialog");
             }
@@ -74,6 +75,27 @@ public class ShowChannels extends Activity {
         }
     }
 
+    @Override
+    public void onComplete(String title, String url) {
+        if (currCode == REQUEST_ADD_CHANNEL) {
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "http://" + url;
+            }
+            ChannelsStuff.addNewChannel(title, url, this);
+            adapter.notifyDataSetChanged();
+        } else if (currCode == REQUEST_CHANGE_CHANNEL) {
+            if (title == null && url == null) {
+                ChannelsStuff.deleteChannel(lastItem, this);
+            } else {
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = "http://" + url;
+                }
+                ChannelsStuff.changeChannel(title, url, lastItem, this);
+            }
+            adapter.notifyDataSetChanged();
+        }
+    }
 
     static final String TAG = "ShowChannels Activity";
+
 }
