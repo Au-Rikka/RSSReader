@@ -1,17 +1,12 @@
-package homework5.rssreader;
+package homework5.rssreader.RSS;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.util.Xml;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,22 +15,25 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import homework5.rssreader.RSS.RSSAdapter;
+import homework5.rssreader.RSS.RSSParser;
+import homework5.rssreader.RSS.TNews;
+
 /**
  * Created by Anstanasia on 21.10.2014.
  */
-public class Update extends AsyncTask<String, Void, List<TNews>> {
+public class UpdateRSSList extends AsyncTask<String, Void, List<TNews>> {
     Context context;
-    MyAdapter adapter;
+    RSSAdapter adapter;
     ListView rssList;
 
-    Update(Context c, ListView l) {
+    public UpdateRSSList(Context c, ListView l) {
         context = c;
         rssList = l;
     }
@@ -60,12 +58,12 @@ public class Update extends AsyncTask<String, Void, List<TNews>> {
             Log.d("Updater", "OK 2");
 
             SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
-            MyParser myParser = new MyParser();
-            saxParser.parse(is, myParser);
+            RSSParser RSSParser = new RSSParser();
+            saxParser.parse(is, RSSParser);
 
             Log.d("Updater", "OK 3");
 
-            return myParser.getNews();
+            return RSSParser.getNews();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -82,12 +80,12 @@ public class Update extends AsyncTask<String, Void, List<TNews>> {
     @Override
     protected void onPostExecute(List<TNews> res) {
         if (res == null) {
-            Log.d("Update", "null pointer!!!!!!!!!!!!!!");
+            Log.d("UpdateRSSList", "null pointer!!!!!!!!!!!!!!");
         } else {
-            Log.d("Update", res.get(0).getDescription());
+            Log.d("UpdateRSSList", res.get(0).getDescription());
         }
 
-        adapter = new MyAdapter();
+        adapter = new RSSAdapter();
         adapter.setData((java.util.ArrayList<TNews>) res);
         adapter.notifyDataSetChanged();
         rssList.setAdapter(adapter);

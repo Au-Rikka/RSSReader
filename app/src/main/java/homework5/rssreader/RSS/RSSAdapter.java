@@ -1,4 +1,4 @@
-package homework5.rssreader;
+package homework5.rssreader.RSS;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -9,11 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+import homework5.rssreader.R;
+
 /**
  * Created by Anstanasia on 14.10.2014.
  */
 
-public class MyAdapter extends BaseAdapter {
+public class RSSAdapter extends BaseAdapter {
     private ArrayList <TNews> data = new ArrayList<TNews>();
 
     public void setData(ArrayList<TNews> d) {
@@ -38,7 +40,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
-        Log.d("MyAdapter", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!qwerty");
+        Log.d("RSSAdapter", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!qwerty");
 
         View view = convertView;
 

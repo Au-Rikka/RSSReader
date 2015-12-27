@@ -49,8 +49,8 @@ public class ChannelAdapter extends BaseAdapter {
 
         ((TextView) view.findViewById(R.id.channel_title)).setText(x.getTitle());
         ((TextView) view.findViewById(R.id.channel_url)).setText(x.getUrl());
-        view.findViewById(R.id.title).setBackgroundColor(Color.GRAY);
-        view.findViewById(R.id.content).setBackgroundColor(Color.GRAY);
+        view.findViewById(R.id.channel_title).setBackgroundColor(Color.GRAY);
+        view.findViewById(R.id.channel_url).setBackgroundColor(Color.GRAY);
 
         return view;
     }

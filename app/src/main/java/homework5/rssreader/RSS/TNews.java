@@ -1,4 +1,4 @@
-package homework5.rssreader;
+package homework5.rssreader.RSS;
 
 /**
  * Created by Anstanasia on 21.10.2014.

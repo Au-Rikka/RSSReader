@@ -9,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import homework5.rssreader.RSS.RSSAdapter;
+import homework5.rssreader.RSS.TNews;
+import homework5.rssreader.RSS.UpdateRSSList;
 
 
 public class Main extends Activity {
@@ -25,6 +28,7 @@ public class Main extends Activity {
         button = (Button) findViewById(R.id.okButton);
         rssList = (ListView) findViewById(R.id.rssListView);
 
+        ChannelsStuff.loadChannelsFromDB(this);
         download();
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +43,7 @@ public class Main extends Activity {
         rssList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View view, int pos, long l) {
-                MyAdapter a = (MyAdapter) av.getAdapter();
+                RSSAdapter a = (RSSAdapter) av.getAdapter();
                 TNews n = a.getItem(pos);
                 intent.putExtra("url", n.getLink());
                 startActivity(intent);
@@ -48,6 +52,6 @@ public class Main extends Activity {
     }
 
     public void download() {
-       new Update(this, rssList).execute("http://feeds.bbci.co.uk/news/rss.xml");
+       new UpdateRSSList(this, rssList).execute("http://feeds.bbci.co.uk/news/rss.xml");
     }
 }

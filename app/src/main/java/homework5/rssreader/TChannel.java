@@ -7,9 +7,14 @@ public class TChannel {
     private String title;
     private String url;
 
-    public TChannel () {
+    public TChannel() {
         title = "null";
         url = "null";
+    }
+
+    public TChannel(String title, String url) {
+        this.title = title;
+        this.url = url;
     }
 
     public void setTitle(String title) {

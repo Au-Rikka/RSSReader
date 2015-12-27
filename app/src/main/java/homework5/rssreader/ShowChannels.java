@@ -1,20 +1,20 @@
 package homework5.rssreader;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
-
 /**
  * Created by Anstanasia on 26.12.2015.
  */
 public class ShowChannels extends Activity {
+
     ChannelAdapter adapter;
     ListView channelView;
-    List<TChannel> res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +29,18 @@ public class ShowChannels extends Activity {
     }
 
     public void updateChannelList() {
-        //засунуть список каналов в рез
-
-        if (res == null) {
+        if (ChannelsStuff.res == null) {
             Toast toast = Toast.makeText(getApplicationContext(), "List of channels is empty", Toast.LENGTH_SHORT);
             toast.show();
         } else {
             adapter = new ChannelAdapter();
-            adapter.setData((java.util.ArrayList<TChannel>) res);
+            adapter.setData((java.util.ArrayList<TChannel>) ChannelsStuff.res);
             adapter.notifyDataSetChanged();
             channelView.setAdapter(adapter);
         }
     }
 
+
+
+    static final String TAG = "ShowChannels Activity";
 }

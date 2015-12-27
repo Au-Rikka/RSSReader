@@ -1,6 +1,4 @@
-package homework5.rssreader;
-
-import android.util.Log;
+package homework5.rssreader.RSS;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,7 +9,7 @@ import java.util.List;
 /**
  * Created by Anstanasia on 14.01.2015.
  */
-public class MyParser extends DefaultHandler {
+public class RSSParser extends DefaultHandler {
     private List<TNews> news = new ArrayList<TNews>();
     private TNews currentNews;
     private boolean parsingTitle;
