@@ -6,6 +6,14 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/channelListView" />
+        android:id="@+id/channelListView"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Add new channel"
+        android:id="@+id/new_channel_button"
+        android:layout_weight="9"/>
 
 </LinearLayout>

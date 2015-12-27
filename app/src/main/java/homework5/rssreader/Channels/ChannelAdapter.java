@@ -1,4 +1,4 @@
-package homework5.rssreader;
+package homework5.rssreader.Channels;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -10,15 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import homework5.rssreader.R;
+
 /**
  * Created by Anstanasia on 26.12.2015.
  */
 public class ChannelAdapter extends BaseAdapter {
     private ArrayList<TChannel> data = new ArrayList<TChannel>();
 
-    public void setData(ArrayList<TChannel> d) {
-        this.data = d;
-    }
+    public void setData(ArrayList<TChannel> d) {this.data = d;}
 
     @Override
     public int getCount() {

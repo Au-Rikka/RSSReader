@@ -8,5 +8,8 @@
     <string name="editText">Enter RSS Url</string>
     <string name="Okey">OK</string>
     <string name="okey2"> OK </string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 
 </resources>

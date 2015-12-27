@@ -1,4 +1,4 @@
-package homework5.rssreader;
+package homework5.rssreader.Channels;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,14 +12,12 @@ import android.util.Log;
 public class ChannelsDBHelper extends SQLiteOpenHelper {
 
     public ChannelsDBHelper(Context context) {
-        // конструктор суперкласса
         super(context, "ChannelDB", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "--- onCreate database ---");
-        // создаем таблицу с полями
         db.execSQL("create table channels ("
                 + "id integer primary key autoincrement,"
                 + "title text,"
@@ -27,11 +25,7 @@ public class ChannelsDBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
-
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
     final String TAG = "ChannelsDBHelper";
 }

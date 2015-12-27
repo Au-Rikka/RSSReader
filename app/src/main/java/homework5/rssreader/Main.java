@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import homework5.rssreader.Channels.ChannelsStuff;
 import homework5.rssreader.RSS.RSSAdapter;
 import homework5.rssreader.RSS.TNews;
 import homework5.rssreader.RSS.UpdateRSSList;
@@ -28,8 +29,8 @@ public class Main extends Activity {
         button = (Button) findViewById(R.id.okButton);
         rssList = (ListView) findViewById(R.id.rssListView);
 
-        ChannelsStuff.loadChannelsFromDB(this);
         download();
+        ChannelsStuff.loadChannelsFromDB(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

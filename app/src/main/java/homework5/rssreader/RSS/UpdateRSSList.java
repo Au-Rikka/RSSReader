@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -83,6 +84,11 @@ public class UpdateRSSList extends AsyncTask<String, Void, List<TNews>> {
             Log.d("UpdateRSSList", "null pointer!!!!!!!!!!!!!!");
         } else {
             Log.d("UpdateRSSList", res.get(0).getDescription());
+        }
+
+        if (res == null || res.size() == 0) {
+            Toast toast = Toast.makeText(context, "Пора покормить кота!", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         adapter = new RSSAdapter();
