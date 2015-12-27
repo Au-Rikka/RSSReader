@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import homework5.rssreader.R;
 
@@ -20,11 +21,11 @@ import homework5.rssreader.R;
 public class RSSAdapter extends BaseAdapter {
     private ArrayList <TNews> data = new ArrayList<TNews>();
 
-    public void setData(ArrayList<TNews> d) {
+    public void setData(List<TNews> d) {
         if (d != null && d.size() > 0) {
             Log.d("adapter", d.get(0).getDescription());
         }
-        this.data = d;
+        this.data = (ArrayList<TNews>) d;
     }
 
     @Override

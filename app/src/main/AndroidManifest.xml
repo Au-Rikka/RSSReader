@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Main"
-            android:label="RSS feed"
+            android:label="RSS Reader"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +30,12 @@
         <activity
             android:name=".ShowChannels"
             android:label="Channels"
+            android:screenOrientation="portrait"
+            ></activity>
+
+        <activity
+            android:name=".ShowRss"
+            android:label="RSS Feed"
             android:screenOrientation="portrait"
             ></activity>
 

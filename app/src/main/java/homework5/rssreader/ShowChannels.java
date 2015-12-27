@@ -8,10 +8,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import homework5.rssreader.Channels.ChannelAdapter;
 import homework5.rssreader.Channels.ChannelDialog;
 import homework5.rssreader.Channels.ChannelsStuff;
 import homework5.rssreader.Channels.TChannel;
+
 
 /**
  * Created by Anstanasia on 26.12.2015.
@@ -82,7 +84,6 @@ public class ShowChannels extends Activity implements ChannelDialog.OnCompleteLi
             }
             ChannelsStuff.addNewChannel(title, url, this);
             adapter.notifyDataSetChanged();
-            Main.download();
         } else if (currCode == REQUEST_CHANGE_CHANNEL) {
             if (title == null && url == null) {
                 ChannelsStuff.deleteChannel(lastItem, this);
@@ -92,7 +93,7 @@ public class ShowChannels extends Activity implements ChannelDialog.OnCompleteLi
                 }
                 ChannelsStuff.changeChannel(title, url, lastItem, this);
             }
-            Main.download();
+
             adapter.notifyDataSetChanged();
         }
     }

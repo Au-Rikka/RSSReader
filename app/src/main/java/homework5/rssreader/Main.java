@@ -16,25 +16,29 @@ import homework5.rssreader.RSS.UpdateRSSList;
 
 
 public class Main extends Activity {
-    Button button;
-    ListView rssList;
+    Button rss, channels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_very_main);
 
         Log.d("main", "start");
 
-        button = (Button) findViewById(R.id.okButton);
-        rssList = (ListView) findViewById(R.id.rssListView);
+        ChannelsStuff.loadChannelsFromDB(this);
 
-        if (savedInstanceState == null) {
-            ChannelsStuff.loadChannelsFromDB(this);
-            download();
-        }
+        rss = (Button) findViewById(R.id.go_to_rss_feed);
+        channels = (Button) findViewById(R.id.go_to_channels);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        rss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(Main.this, ShowRss.class);
+                startActivity(intent);
+            }
+        });
+
+        channels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Intent intent = new Intent(Main.this, ShowChannels.class);
@@ -42,28 +46,6 @@ public class Main extends Activity {
             }
         });
 
-        final Intent intent = new Intent(Main.this, ShowWeb.class);
-        rssList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> av, View view, int pos, long l) {
-                RSSAdapter a = (RSSAdapter) av.getAdapter();
-                TNews n = a.getItem(pos);
-                intent.putExtra("url", n.getLink());
-                startActivity(intent);
-            }
-        });
-    }
 
-    public void download() {
-       new UpdateRSSList(this, rssList).execute();
-        //.execute("http://feeds.bbci.co.uk/news/rss.xml");
-    }
-
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 }

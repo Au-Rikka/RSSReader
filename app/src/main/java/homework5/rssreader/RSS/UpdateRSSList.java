@@ -30,13 +30,14 @@ import homework5.rssreader.Channels.TChannel;
 import homework5.rssreader.RSS.RSSAdapter;
 import homework5.rssreader.RSS.RSSParser;
 import homework5.rssreader.RSS.TNews;
+import homework5.rssreader.ShowChannels;
+import homework5.rssreader.ShowRss;
 
 /**
  * Created by Anstanasia on 21.10.2014.
  */
 public class UpdateRSSList extends AsyncTask<Void, Void, List<TNews>> {
     Context context;
-    RSSAdapter adapter;
     ListView rssList;
 
     public UpdateRSSList(Context c, ListView l) {
@@ -102,27 +103,16 @@ public class UpdateRSSList extends AsyncTask<Void, Void, List<TNews>> {
             Log.d("UpdateRSSList", res.get(0).getDescription());
         }
 
-        if (res == null || res.size() == 0) {
-            Toast toast = Toast.makeText(context, "Загрузка неудалась", Toast.LENGTH_SHORT);
-            toast.show();
-        }
 
         Collections.sort(res, new Comparator<TNews>() {
             public int compare(TNews o1, TNews o2) {
-                if (o2.getDate2() == null) {
-                    return 1;
-                }
-                if (o1.getDate2() == null) {
-                    return -1;
-                }
-                return o1.getDate2().compareTo(o2.getDate2());
+                return o1.getDate().compareTo(o2.getDate());
             }
         });
 
-        adapter = new RSSAdapter();
-        adapter.setData((java.util.ArrayList<TNews>)res);
+        RSSAdapter adapter = new RSSAdapter();
+        adapter.setData(res);
         adapter.notifyDataSetChanged();
         rssList.setAdapter(adapter);
-
     }
 }

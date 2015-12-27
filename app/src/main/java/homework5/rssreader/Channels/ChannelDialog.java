@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +50,6 @@ public class ChannelDialog extends DialogFragment {
                     mListener.onComplete(((EditText) v.findViewById(R.id.channel_dialog_title)).getText().toString(),
                                          ((EditText) v.findViewById(R.id.channel_dialog_url)).getText().toString());
 
-                    /*sendResult(((EditText) v.findViewById(R.id.channel_dialog_title)).getText().toString(),
-                            ((EditText) v.findViewById(R.id.channel_dialog_url)).getText().toString());
-                */
                 }
             }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {

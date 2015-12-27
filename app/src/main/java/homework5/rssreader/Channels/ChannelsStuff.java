@@ -98,7 +98,7 @@ public class ChannelsStuff {
         Log.d(TAG, "deleted rows count = " + delCount);
 
         res.remove(i);
-        // закрываем подключение к БД
+
         dbHelper.close();
     }
 
