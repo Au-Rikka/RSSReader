@@ -9,11 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d11725-cdf6-4018-afc2-6b7673f1e911" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/homework5/rssreader/RSS/TNews.java" afterPath="$PROJECT_DIR$/app/src/main/java/homework5/rssreader/RSS/TNews.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/homework5/rssreader/RSS/UpdateRSSList.java" afterPath="$PROJECT_DIR$/app/src/main/java/homework5/rssreader/RSS/UpdateRSSList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="68d11725-cdf6-4018-afc2-6b7673f1e911" name="Default" comment="" />
     <ignored path="RSSReader.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
