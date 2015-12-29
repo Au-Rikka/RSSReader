@@ -106,7 +106,13 @@ public class UpdateRSSList extends AsyncTask<Void, Void, List<TNews>> {
 
         Collections.sort(res, new Comparator<TNews>() {
             public int compare(TNews o1, TNews o2) {
-                return o1.getDate().compareTo(o2.getDate());
+                if (o1.getDate2() == null) {
+                    return 1;
+                }
+                if (o2.getDate2() == null) {
+                    return -1;
+                }
+                return -o1.getDate2().compareTo(o2.getDate2());
             }
         });
 

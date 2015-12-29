@@ -40,7 +40,7 @@ public class TNews {
         if (date == null) {
             this.date = "";
         }
-        DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+        DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
         try {
             this.date2 = formatter.parse(date);
         } catch (ParseException e) {
